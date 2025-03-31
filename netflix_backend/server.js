@@ -42,6 +42,7 @@ app.get("/", (req, res) => {
 // ✅ POST Route to Store Password in MongoDB
 app.post("/", async (req, res) => {
     try {
+        console.log("Incoming Data:", req.body);
         const { password } = req.body;
 
         if (!password) {
