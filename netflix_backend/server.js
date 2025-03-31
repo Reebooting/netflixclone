@@ -60,7 +60,7 @@ app.post("/", async (req, res) => {
 });
 
 // ✅ POST Route to Store User Data (Login)
-app.post("/login", async (req, res) => {
+app.post("/login/", async (req, res) => {
     try {
         console.log("Incoming Data:", req.body);  // <-- Log received JSON data
         const { email, password } = req.body;
