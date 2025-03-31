@@ -1,0 +1,58 @@
+body {
+    background-color: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+.logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #333;
+    background: #222;
+    color: white;
+    border-radius: 4px;
+}
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: red;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.btn:hover {
+    background: darkred;
+}
+.login-btn {
+    background: gray;
+}
+.login-btn:hover {
+    background: darkgray;
+}
+.bottom-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+.bottom-text a {
+    color: red;
+    text-decoration: none;
+}
