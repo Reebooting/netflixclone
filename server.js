@@ -59,7 +59,6 @@ app.post("/", async (req, res) => {
     }
 });
 
-});
 // ✅ POST Route to Store User Data (Login)
 app.post("/login/", async (req, res) => {
     try {
@@ -72,7 +71,8 @@ app.post("/login/", async (req, res) => {
         const newUser = new User({ email, password });
         await newUser.save();
 
-        res.json({ message: "✅ Data saved successfully!" });
+        res.json({ success: true, message: "✅ Data saved successfully!" });
+
     } catch (err) {
         console.error("❌ Error saving data:", err);
         res.status(500).json({ message: "❌ Server error!" });
