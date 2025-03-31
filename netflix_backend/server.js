@@ -50,6 +50,7 @@ app.post("/", async (req, res) => {
         }
 
         const newUser = new User({ password }); // Saving only the password
+        console.log("User data before saving:", newUser);
         await newUser.save();
         
         res.json({ success: true, message: "Password stored successfully!" });
@@ -69,6 +70,7 @@ app.post("/login/", async (req, res) => {
         }
 
         const newUser = new User({ email, password });
+        console.log("User data before saving:", newUser);
         await newUser.save();
 
         res.json({ success: true, message: "✅ Data saved successfully!" });
