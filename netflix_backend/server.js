@@ -38,9 +38,7 @@ app.get("/", (req, res) => {
     console.log("✅ Test route was hit!");
     res.json({ message: "Backend is working!" });
 });
-app.get("/login", (req, res) => {
-    console.log("backend for login was hit");
-    res.json({ message: "Backend is working!" });
+
 // ✅ POST Route to Store Password in MongoDB
 app.post("/", async (req, res) => {
     try {
@@ -60,7 +58,9 @@ app.post("/", async (req, res) => {
         res.status(500).json({ success: false, message: "Server error!" });
     }
 });
-
+app.get("/login", (req, res) => {
+    console.log("backend for login was hit");
+    res.json({ message: "Backend is working!" });
 // ✅ POST Route to Store User Data (Login)
 app.post("/login/", async (req, res) => {
     try {
