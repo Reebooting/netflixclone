@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
+const MONGO_URI = "mongodb+srv://<new-user69>:<Suraj2025>@cluster0.1ct8eyx.mongodb.net/users";
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
