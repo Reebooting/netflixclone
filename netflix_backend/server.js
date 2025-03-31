@@ -6,39 +6,77 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Use your actual MongoDB connection string here
+// MongoDB Connection with Error Handling
 mongoose.connect("mongodb+srv://new-user69:Suraj2025@cluster0.1ct8eyx.mongodb.net/myDatabase?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log("Connected to MongoDB"))
-.catch(err => console.error("MongoDB connection error:", err));
+.then(() => console.log("✅ Connected to MongoDB"))
+.catch(err => {
+    console.error("❌ MongoDB connection error:", err);
+    process.exit(1); // Exit process if MongoDB connection fails
+});
 
+// Global Error Handlers for Unhandled Errors
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("Unhandled Rejection at:", promise, "reason:", reason);
+});
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught Exception:", err);
+    process.exit(1);
+});
+
+// User Schema
 const UserSchema = new mongoose.Schema({
     email: String,
     password: String
 });
-
 const User = mongoose.model("User", UserSchema);
 
-// Testing route to check backend
+// ✅ GET Test Route to Check Backend
 app.get("/", (req, res) => {
-    console.log("Test route was hit!"); // Console log when the test route is accessed
+    console.log("✅ Test route was hit!");
     res.json({ message: "Backend is working!" });
 });
 
-// Post route to store user data
-app.post("/login", async (req, res) => {
+// ✅ POST Route to Store Password in MongoDB
+app.post("/", async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const newUser = new User({ email, password });
+        console.log("Incoming Data:", req.body);  // <-- Log received JSON data
+        const { password } = req.body;
+        if (!password) {
+            return res.status(400).json({ message: "❌ Password is required!" });
+        }
+
+        const newUser = new User({ email: "unknown", password }); // Store password with a placeholder email
         await newUser.save();
-        res.json({ message: "Data saved successfully!" });
+
+        res.json({ message: "✅ Password stored successfully!" });
     } catch (err) {
-        console.error("Error saving data:", err);
-        res.status(500).json({ message: "Server error!" });
+        console.error("❌ Error storing password:", err);
+        res.status(500).json({ message: "❌ Server error!" });
     }
 });
 
+// ✅ POST Route to Store User Data (Login)
+app.post("/login", async (req, res) => {
+    try {
+        console.log("Incoming Data:", req.body);  // <-- Log received JSON data
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: "❌ Email and Password are required!" });
+        }
+
+        const newUser = new User({ email, password });
+        await newUser.save();
+
+        res.json({ message: "✅ Data saved successfully!" });
+    } catch (err) {
+        console.error("❌ Error saving data:", err);
+        res.status(500).json({ message: "❌ Server error!" });
+    }
+});
+
+// Start Server
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
